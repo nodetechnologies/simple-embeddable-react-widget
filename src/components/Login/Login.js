@@ -1,11 +1,11 @@
 import React from "react";
 import Config from "../../config";
-import "./widget.css";
+import "./login.css";
 import { useTranslation } from "react-i18next";
 
 const widgetName = Config.name;
 
-class Widget extends React.Component {
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -53,4 +53,4 @@ class Widget extends React.Component {
   }
 }
 
-export default Widget;
+export default Login;

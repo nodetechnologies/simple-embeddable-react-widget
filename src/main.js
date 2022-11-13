@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Widget from './components/Widget/Widget';
+import Login from './components/Login/Login/';
 import Config from './config';
 
 const widgetName = Config.name;
@@ -76,6 +77,32 @@ function apiHandler(api, params) {
             // call methods as needed
             widgetComponent = React.createRef();
             ReactDOM.render(<Widget ref={widgetComponent} />, document.getElementById(config.targetElementId));
+            break;
+        case 'message':
+            // Send the message to the current widget instance
+            widgetComponent.current.setMessage(params);
+            break;
+        default:
+            throw Error(`Method ${api} is not supported`);
+    }
+}
+
+function apiHandler(api, params) {
+    if (!api) throw Error('API method required');
+    api = api.toLowerCase();
+    let config = window[widgetConfigName];
+
+    console.log(`Handling API call ${api}`, params, config);
+
+    switch (api) {
+        case 'init':
+            config = Object.assign({}, config, params);
+            window[widgetConfigName] = config;
+
+            // get a reference to the created widget component so we can
+            // call methods as needed
+            widgetComponent = React.createRef();
+            ReactDOM.render(<Login ref={widgetComponent} />, document.getElementById(config.targetElementId));
             break;
         case 'message':
             // Send the message to the current widget instance
